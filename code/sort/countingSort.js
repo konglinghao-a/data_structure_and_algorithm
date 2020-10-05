@@ -75,13 +75,13 @@ function countingSort2(arr) {
  * 输出：数组中的最大值
  */
 function findMaxValue(arr) {
-  let max = arr[0];
+  let maxValue = arr[0];
   for (let i = 1; i < arr.length; i++) {
-    if (max < arr[i]) {
-      max = arr[i];
+    if (maxValue < arr[i]) {
+      maxValue = arr[i];
     }
   }
-  return max;
+  return maxValue;
 }
 
 /**
@@ -90,13 +90,13 @@ function findMaxValue(arr) {
  * 输出：数组中的最大值
  */
 function findMinValue(arr) {
-  let min = arr[0];
+  let minValue = arr[0];
   for (let i = 1; i < arr.length; i++) {
-    if (min > arr[i]) {
-      min = arr[i];
+    if (minValue > arr[i]) {
+      minValue = arr[i];
     }
   }
-  return min;
+  return minValue;
 }
 
 // 测试
