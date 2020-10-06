@@ -1,10 +1,3 @@
-## 算法原理
-
-## 算法图解
-
-## javascript 代码
-
-```javascript
 /**
  * 快速排序
  * 输入：
@@ -77,6 +70,3 @@ let testArr = [9, 4, 6, 8, 1, 11, 3, 2, 5];
 let left = 0;
 let right = testArr.length - 1;
 console.log(quickSort(testArr, left, right));
-
-```
-

@@ -1,3 +1,72 @@
-let arr = new Array(10);
-arr[10] = '222';
-console.log(arr.length);
+/**
+ * 桶排序
+ * 输入：
+ *    待排序的数组
+ *    桶的宽度，默认为 5
+ * 输出：从小到大排好序的数组
+ */
+function bucketSort(arr, bucketWidth = 5) { // 桶的宽度默认是 5
+  // 获取数组中的最大最小值
+  let maxValue = arr[0];
+  let minValue = arr[0];
+  for (let i = 0; i < arr.length; i++) {
+    if (maxValue < arr[i]) {
+      maxValue = arr[i];
+    }
+    if (minValue > arr[i]) {
+      minValue = arr[i];
+    }
+  }
+
+  // 根据桶的宽度来确定桶的个数，并创建相应长度的数组（js 动态可不那么做）
+  let bucketCount = Math.ceil((maxValue - minValue + 1) / bucketWidth);
+  let buckets = new Array(bucketCount); // 桶
+  // let buckets = [];
+
+  // 将数组中的每个数分配到对应的桶中
+  for (let i = 0; i < arr.length; i++) {
+    // 确定当前数应该在下标为几的桶
+    let index = Math.ceil((arr[i] - minValue + 1) / bucketWidth) - 1;
+
+    // 将当前数塞到桶里
+    if (!buckets[index]) {
+      buckets[index] = [];
+    }
+    buckets[index].push(arr[i]);
+  }
+
+  // 将每个桶中的数组分别进行排序（这里用啥排序都行，我就用简单的插入排序）
+  let sortedArr = []
+  for (let i = 0; i < bucketCount; i++) {
+    if (buckets[i]) {
+      buckets[i] = insertionSort(buckets[i]); // 插入排序
+      sortedArr.push(...buckets[i]);
+    }
+  }
+
+  return sortedArr;
+}
+
+/**
+ * 插入排序
+ * 输入：待排序的数组
+ * 输出：排好序的数组
+ */
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let temp = i; // 记录待插入值的下标
+    for (let j = i - 1; j >= 0; j--) {
+      if (arr[temp] < arr[j]) {
+        [arr[temp], arr[j]] = [arr[j], arr[temp]];
+        temp = j;
+      } else {
+        break;
+      }
+    }
+  }
+  return arr;
+}
+
+// 测试
+let testArr = [9, 4, 6, 8, 1, 3, 2, 5];
+console.log(bucketSort(testArr, 2));
